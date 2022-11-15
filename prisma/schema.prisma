@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id        Int              @id @default(autoincrement())
+  name      String?
+  email     String
+  username  String?
+  Manager   Manager?         @relation(fields: [managerId], references: [id])
+  managerId Int?
+  employee  LeavesRequests[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
+model Manager {
+  id        Int        @id @default(autoincrement())
+  name      String?
+  email     String     @unique
+  username  String     @unique
+  employee  Employee[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model HR {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String   @unique
+  username  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LeavesRequests {
+  id         Int       @id @default(autoincrement())
+  leaveId    String?   @unique
+  status     Status
+  startOn    DateTime
+  endsOn     DateTime
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Employee   Employee? @relation(fields: [employeeId], references: [id])
+  employeeId Int?
+}
+
+enum Status {
+  APPROVED
+  PENDING
+  REJECTED
+}
