@@ -42,11 +42,6 @@ const hrList: Array<{
   username: string;
 }> = [
   {
-    name: 'fatema Moahmmed',
-    email: 'fatema.m2906@gmail.com',
-    username: 'fatema.m2906',
-  },
-  {
     name: 'fatima Maki',
     email: 'fatima__8@outlook.com',
     username: 'fatima__8',
