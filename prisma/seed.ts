@@ -77,22 +77,10 @@ async function pushHRStaffList() {
   });
 }
 
-async function pushDummyLeaves() {
-  const date = new Date();
-  await prisma.leavesRequests.create({
-    data: {
-      leaveId: uuidv4(),
-      startOn: date,
-      endsOn: date,
-      status: 'PENDING',
-    },
-  });
-}
 
 async function main() {
   console.log('start seeding ...');
   // await pushStaffList();
-  // await pushDummyLeaves();
   await pushHRStaffList();
   console.log('end seeding.');
 }
